@@ -5,6 +5,7 @@ import Acerca from '../pages/Acerca'
 import Contacto from '../pages/Contacto'
 import Error404 from '../pages/Error404'
 import MenuConceptos from './MenuConceptos'
+import Usuario from '../pages/Usuario'
 
 const ConceptosBasicos = () => {
 
@@ -17,6 +18,7 @@ const ConceptosBasicos = () => {
                     <Route path="/" element={<Home />}/>
                     <Route path="/acerca" element={<Acerca />}/>
                     <Route path="/contacto" element={<Contacto />}/>
+                    <Route path="/usuario/:username" element={<Usuario />}/>
                     <Route path="*" element={<Error404 />}/>
                 </Routes>
             </Router>

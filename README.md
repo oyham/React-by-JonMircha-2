@@ -140,3 +140,43 @@ MenuConceptos:
 Estos últimas dos formas de navegar entre componentes es la forma recomendable ya que no vuelve a renderizar la página mientras carga dinámicamente la UI.
 
 ---
+# 57. React Router. Paso de Parámetros (hook useParams)
+Creamos en *page* el archivo **Usuario.jsx**. Dentro de este creamos un `let { username } = useParams()`, y devolverá cómo parametro dicho nombre de usuario. Luego en **ConceptosBasicos** creamos un nuevo componente *Route* para renderizar *Usuario*, con la simple modificación de que en su *path* agregemos dicha variable que creamos con *useParams* anteponiendolo con **:** para que react router sepa que estamos haciendo referencia a una ruta que puede variar, luego de colocar `/usuario`, quedando esto así `/usuario/:username/:age`. Cabe aclarar que podemos seguir añadiendo tantos *:* cómo queramos. Éste sera un valor que dinámicamente puede cambiar. 
+
+#### Corrección de error: "activeClassName" no se utiliza más ya que ya se encuentra por default en los NavLink. Si se quiere hacer uso de él sólo basta con definir .active en CSS y dar estilos.
+
+useParams es un objeto dónde cada propiedad hace referencia a cada uno de los parametros que vamos pasando a traves de la URL. Esta manera de definir rutas nos permiten urls amigables por así decirlo.
+
+Finalmente dejaremos `usuario/:username`. Añadimos una nueva *li* con 2 componentes *Link*, indícando el *path* de `usuario/jonmircha` y `usuario/kenai`.
+Usuario.jsx:
+```js
+import React from 'react'
+import { useParams } from 'react-router-dom'
+
+const Usuario = () => {
+    // let params = useParams()
+    // console.log(params)
+    let { username } = useParams()
+    return (
+        <div>
+            <h2>Perfil del usuario</h2>
+            <p>Nombre del usuario <b>{username}</b></p>
+        </div>
+    )
+}
+
+export default Usuario
+```
+MenuConceptos.jsx:
+```js
+        <li>
+          <span>Parámetros: </span>
+          <Link to="/usuario/jonmircha">JonMircha</Link>
+          <Link to="/usuario/kenai">Kenai</Link>
+        </li>
+```
+ConceptosBasicos.jsx:
+```js
+<Route path="/usuario/:username" element={<Usuario />}/>
+```
+
