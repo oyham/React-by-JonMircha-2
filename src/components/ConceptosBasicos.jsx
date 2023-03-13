@@ -1,7 +1,9 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Home from '../pages/Home'
 import Acerca from '../pages/Acerca'
 import Contacto from '../pages/Contacto'
+import Error404 from '../pages/Error404'
 
 const ConceptosBasicos = () => {
 
@@ -10,21 +12,10 @@ const ConceptosBasicos = () => {
             <h2>Conceptos Basicos</h2>
             <Router>
                 <Routes>
-                    <Route path="/" 
-                    element={
-                        <div>
-                            <h3>Home</h3>
-                            <p>Welcome</p>
-                        </div>
-                    } />
-                    <Route path="/acerca" 
-                    element={
-                        <Acerca />
-                    } />
-                    <Route path="/contacto" 
-                    element={
-                        <Contacto />
-                    } />
+                    <Route path="/" element={<Home />}/>
+                    <Route path="/acerca" element={<Acerca />}/>
+                    <Route path="/contacto" element={<Contacto />}/>
+                    <Route path="*" element={<Error404 />}/>
                 </Routes>
             </Router>
         </div>

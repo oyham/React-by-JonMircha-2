@@ -52,7 +52,7 @@ const ConceptosBasicos = () => {
 export default ConceptosBasicos
 ```
 ---
-# 54. React Router: Sintaxis para declarar rutas.
+# 54. React Router. Sintaxis para declarar rutas.
 Creamos la carpega *page* dentro de *src* para crear los componentes a renderizar en **Route**. Acerca.jsx será el primer componente a trabajar, y lo nombramos en español porque trataremos de ser fiél a la ruta que el usuario va a colocar en la aplicación. Posteriormente creamos Contaco.jsx e importamos los dos componentes en la prop *element* dentro de sus respectivos Route según su *path*. Tener en cuenta que todo lo que esté fuera del Router siempre se va a mostrar al cargar la aplicación. Ej: Cabecera, el contenido que va a varia envuelto en Router, y el píe de página.
 ##### Los componentes Route pueden ser tratados como contenedores o lineales. 
 ```js
@@ -75,3 +75,18 @@ Creamos la carpega *page* dentro de *src* para crear los componentes a renderiza
                 </Routes>
 ...
 ```
+# 55. React Router. Ruta de error 404
+Creamos los componentes Home y Error404. 
+
+Para el *path* de Error404 colocaremos un **"*"** (asterico) indicando que cualquier ruta que no se encuentre en la barra de direcciones va a cargar error, y sí o sí debemos de llamar a este componente al final de Routes por el tema de la jerarquía a la hora de que Router renderize dichas rutas.
+```js
+...
+                <Routes>
+                    <Route path="/" element={<Home />}/>
+                    <Route path="/acerca" element={<Acerca />}/>
+                    <Route path="/contacto" element={<Contacto />}/>
+                    <Route path="*" element={<Error404 />}/>
+                </Routes>
+...
+```
+---
