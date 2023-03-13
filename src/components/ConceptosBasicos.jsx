@@ -1,5 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Acerca from '../pages/Acerca'
+import Contacto from '../pages/Contacto'
 
 const ConceptosBasicos = () => {
 
@@ -17,15 +19,11 @@ const ConceptosBasicos = () => {
                     } />
                     <Route path="/acerca" 
                     element={
-                        <div>
-                            <h3>Acerca</h3>
-                        </div>
+                        <Acerca />
                     } />
                     <Route path="/contacto" 
                     element={
-                        <div>
-                            <h3>Contacto</h3>
-                        </div>
+                        <Contacto />
                     } />
                 </Routes>
             </Router>
