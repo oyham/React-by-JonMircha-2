@@ -90,3 +90,53 @@ Para el *path* de Error404 colocaremos un **"*"** (asterico) indicando que cualq
 ...
 ```
 ---
+# 56. React Router. Compoentes Link y NavLink
+Crearemos el componente **MenuConceptos.jsx** que devuelva dentro de una etiqueta *nav* 3 enlaces con sus href respecto a los componentes que tengamos.Lo importamos antes del componente Router. Así cómo está hace que se carge la página nuevamente y es o no es lo que estamos buscando.
+```js
+import React from 'react'
+const MenuConceptos = () => {
+  return (
+    <nav>
+      <ol>
+        <li>
+          <span>Menú con enlaces html(no recomendado):</span>
+          <a href="/">Home</a>
+          <a href="/acerca">Acerca</a>
+          <a href="/contacto">Contacto</a>
+        </li>
+      </ol>
+    </nav>
+  )
+}
+export default MenuConceptos
+```
+Otra manera es reemplazar las etiquetas *a* por componentes **Link**, cambiando así los *href* por la etiqueta *to*. Debemos de colocar el componente MenuConceptos dentro del componente **Router** pero fuera del componente **Routes** para que pueda funcionar, y de esta manera conseguimos cambiar el contenido de la UI sin que se tenga que renderizar la página por cada enlace que visitemos.
+```js
+        <li>
+          <span>Componente Link: </span>
+          <Link to="/">Home</Link>
+          <Link to="/acerca">Acerca</Link>
+          <Link to="/contacto">Contacto</Link>
+          <Link to="/no-existe">Error 404</Link>
+        </li>
+```
+Y por último veremos el componente **NavLink**, lleva tambien *to* y ademas podemos añadirle el atributo **activeClassName** que se utiliza para poder añadir estilos según nos encontremos en dicha ruta.
+index.css:
+```css
+.active {
+  font-weight: bold;
+  color: #61dafb;
+}
+```
+MenuConceptos:
+```js
+        <li>
+          <span>Componente NavLink: </span>
+          <NavLink to="/" activeClassName="active">Home</NavLink>
+          <NavLink to="/acerca" activeClassName="active">Acerca</NavLink>
+          <NavLink to="/contacto" activeClassName="active">Contacto</NavLink>
+        </li>
+```
+Estos últimas dos formas de navegar entre componentes es la forma recomendable ya que no vuelve a renderizar la página mientras carga dinámicamente la UI.
+
+---
