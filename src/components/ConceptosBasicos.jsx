@@ -6,6 +6,7 @@ import Contacto from '../pages/Contacto'
 import Error404 from '../pages/Error404'
 import MenuConceptos from './MenuConceptos'
 import Usuario from '../pages/Usuario'
+import Productos from '../pages/Productos'
 
 const ConceptosBasicos = () => {
 
@@ -19,6 +20,7 @@ const ConceptosBasicos = () => {
                     <Route path="/acerca" element={<Acerca />}/>
                     <Route path="/contacto" element={<Contacto />}/>
                     <Route path="/usuario/:username" element={<Usuario />}/>
+                    <Route path="/productos" element={<Productos />}/>
                     <Route path="*" element={<Error404 />}/>
                 </Routes>
             </Router>

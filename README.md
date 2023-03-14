@@ -179,4 +179,60 @@ ConceptosBasicos.jsx:
 ```js
 <Route path="/usuario/:username" element={<Usuario />}/>
 ```
+---
+# 58. React Router. Parámetros de consulta (hooks useLocation y useHistory)
+### Estos metodos no son recomendados actualmente.
+Creación de *page* llamada **Productos.jsx** y lo mandamos a importar en ConceptosBasicos.jsx `<Route path="/productos" element={<Productos />}/>`.
+El useLocation devuelve un objeto:
+```
+Object 
+  hash: ""
+  key: "9djy9n4y"
+  pathname: "/productos"
+  search: ""
+  state: null
+  [[Prototype]]: Object
+```
+**NO RECOMENDADO**: El search es el que se encarga de las query params. Destructuramos *search* del useLocation y utilizamos un *"new URLSearchParams(search)"* guardado en una `let query`. Ésta se encargará de serealizar los parametros de *search*.
+Si observamos la consola, veremos que el URLSearchParams posee varios métodos.
 
+Luego de aqui utilicé un método que encontre en los comentarios, haciendo uso del {useSearchParams} de react-router. 
+```js
+import React, { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+const LIMIT = 20;
+let start, end;
+
+const Productos = () => {
+    let [searchParams, setSearchParams] = useSearchParams();
+    useEffect(() => {
+      start = searchParams.get("inicio") || "1";
+      end = searchParams.get("fin") || "20";
+      setSearchParams({ inicio: start, fin: end });
+    }, []);
+    
+    console.log(start,end)
+
+    const handleNext = (e) => {
+      start = new String(parseInt(start) + LIMIT);
+      end = new String(parseInt(end) + LIMIT);
+      setSearchParams({ inicio: start, fin: end });
+    };
+    const handlePrev = (e) => {
+      start = new String(parseInt(start) - LIMIT);
+      end = new String(parseInt(end) - LIMIT);
+      setSearchParams({ inicio: start, fin: end });
+    
+    }
+    return (
+        <div>
+            <h2>Productos</h2>
+            <p>Mostrando productos del <b>{start}</b> al <b>{end}</b>.</p>
+            <button onClick={handlePrev}>Atrás</button>
+            <button onClick={handleNext}>Adelante</button>
+        </div>
+    )
+}
+export default Productos
+```
+---
