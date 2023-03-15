@@ -243,3 +243,26 @@ Crearemos una nueva *li* con dos **Links** que nos redirija a ``"/about"``  y ``
 ` <Route path="/about"  element={ <> <Navigate to="/acerca" /> </> } />`
 
 ---
+# 60. React Router. Rutas anidadas (hook useRouteMatch)
+### v5 NO RECOMENDADO. 
+
+#### Equivalencia de useRoutMatch para la v6 de react router:
+[Stack Overflow ->](https://stackoverflow.com/questions/72683709/react-router-v6-useroutematch-equivalent)
+
+'En react-router-dom@6 no hay reemplazo para el hook v5 *useRouteMatch*. Los enlaces y las rutas ya no necesitan preocuparse tanto por el patrón de la ruta, sino que simplemente pueden usar rutas y enlaces relativos. En lugar de intentar acceder al patrón de ruta de una ruta, simplemente puede navegar en relación con la ruta coincidente actualmente.'
+Un ejemplo: 
+```js
+const { pathname } = useLocation();
+
+/ navigate to sibling route path
+<Link to={`${pathname}/../${RELATED_ID}`}>
+  Go to Nested Route {RELATED_ID}
+</Link>
+```
+Esta funcionalidad navega desde '/ruta-a/2' a '/ruta-a/2/../1' o más bien '/ruta-a/1'.
+#### Aqui un ejemplo completo en codesandbox: 
+[CodeSandbox ->](https://codesandbox.io/s/react-router-use-route-match-v5-forked-nk5qb7?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.jsx&theme=dark)
+
+Pero en resumen este concepto trata del enlace entre rutas, entre secciones y sub-secciones. Imaginemos que haremos la documentación de un proyecto. Poseemos temas y sub-temas, y para movernos dinámicamente entre ellos podemos utilizar el ejemplo dado arriba. Existe el hook **useMatch** pero eso se los dejo para que lo investiguen por su cuenta. [Visitar ReactRouter/useMatch](https://reactrouter.com/en/main/hooks/use-match).
+
+---
