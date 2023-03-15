@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Home from '../pages/Home'
 import Acerca from '../pages/Acerca'
 import Contacto from '../pages/Contacto'
@@ -21,6 +21,7 @@ const ConceptosBasicos = () => {
                     <Route path="/contacto" element={<Contacto />}/>
                     <Route path="/usuario/:username" element={<Usuario />}/>
                     <Route path="/productos" element={<Productos />}/>
+                    <Route path="/about"  element={ <> <Navigate to="/acerca" /> </> } />
                     <Route path="*" element={<Error404 />}/>
                 </Routes>
             </Router>

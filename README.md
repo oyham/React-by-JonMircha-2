@@ -236,3 +236,10 @@ const Productos = () => {
 export default Productos
 ```
 ---
+# 59. React Router. Redirecciones
+<!-- "Con los nuevos cambios la redirrecion seria de esta manera.
+ <Route path="/about"  element={ <> <Navigate to="/acerca" /> </> } />" -->
+Crearemos una nueva *li* con dos **Links** que nos redirija a ``"/about"``  y ``"/contact"``. Primero nos arrojará un Error 404 ya que dichas rutas no existen. Para que funcione debemos de especificar una ruta y en el atributo *element* hacer uso del **Navigate**, envuelto en un fragmento y con el **to** para devolver el componente que queramos.
+` <Route path="/about"  element={ <> <Navigate to="/acerca" /> </> } />`
+
+---
