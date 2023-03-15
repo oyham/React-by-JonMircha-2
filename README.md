@@ -266,3 +266,54 @@ Esta funcionalidad navega desde '/ruta-a/2' a '/ruta-a/2/../1' o más bien '/rut
 Pero en resumen este concepto trata del enlace entre rutas, entre secciones y sub-secciones. Imaginemos que haremos la documentación de un proyecto. Poseemos temas y sub-temas, y para movernos dinámicamente entre ellos podemos utilizar el ejemplo dado arriba. Existe el hook **useMatch** pero eso se los dejo para que lo investiguen por su cuenta. [Visitar ReactRouter/useMatch](https://reactrouter.com/en/main/hooks/use-match).
 
 ---
+# 61. React Router. Rutas privadas
+#### Tutorial atualizado a la v6.
+Creamos dos nuevos archivos Login y Dashboard, aplicamos Route a ambos y sus respectivos Links.
+Para simular una ruta privada, crearemos el componente PrivateRoute.
+ El Route de Dashboard, en el atributo element, debe de renderizar nuestro PrivateRoute, además de enviar como prop el componente que queramos renderizar, en este caso Dashboard.
+Luego PrivateRoute destructura como prop dicho atributo para poder renderizarlo.
+
+!Pequeño truco: si deseamos destructurar *props* podemos pasar de esto:
+V5
+```js
+const PrivateRoute = (props) =>{
+  return (
+    <Route exact={props.exact} path={props.path} component={props.component} />
+  )
+}
+```
+A esto:
+```js
+const PrivateRoute = (props) =>{
+  return (
+    <Route {...props} />
+  )
+}
+```
+Y si deseamos poder manejar una prop por separado, podemos hacer lo siguiente:
+```js
+const PrivateRoute = ({component,...rest}) =>{
+  return  <Route {...rest}} />
+}  
+```
+Diciendo que necesitamos extraer la prop component, o element en v6, y el resto de las props, usar la propagación.
+
+Ahora siguiendo con el tutorial crearemos un condicional que basado en un `let auth` renderice o no el **dashboard**, y siendo nulo el *auth*, nos redirija al **login**.
+```js
+import React from 'react'
+import { Navigate } from 'react-router-dom';
+
+const PrivateRoute = ({ private: Private }) => {
+    //simualcion de autenticación
+    let auth;
+    auth = true;
+    auth = null;
+
+    return auth ? <Private /> : <Navigate to="/login" />;
+}
+
+export default PrivateRoute
+```
+El `private: Private` es un *rename* necesario para que nuestro editor de código interprete que private es un componente, ya que estos comienzan con mayúscula. Los *":"* es cómo decir "estoy definiendo un objeto" sólo que estamos renombrandolo.
+
+---

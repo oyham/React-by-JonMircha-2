@@ -38,6 +38,11 @@ const MenuConceptos = () => {
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
         </li>
+        <li>
+          <span>Redireciones Privadas: </span>
+          <Link to="login">Login</Link>
+          <Link to="dashboard">Dashboard</Link>
+        </li>
       </ol>
     </nav>
   )
