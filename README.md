@@ -267,7 +267,7 @@ Pero en resumen este concepto trata del enlace entre rutas, entre secciones y su
 
 ---
 # 61. React Router. Rutas privadas
-#### Tutorial atualizado a la v6.
+#### Tutorial actualizado a la v6.
 Creamos dos nuevos archivos Login y Dashboard, aplicamos Route a ambos y sus respectivos Links.
 Para simular una ruta privada, crearemos el componente PrivateRoute.
  El Route de Dashboard, en el atributo element, debe de renderizar nuestro PrivateRoute, además de enviar como prop el componente que queramos renderizar, en este caso Dashboard.
@@ -315,5 +315,22 @@ const PrivateRoute = ({ private: Private }) => {
 export default PrivateRoute
 ```
 El `private: Private` es un *rename* necesario para que nuestro editor de código interprete que private es un componente, ya que estos comienzan con mayúscula. Los *":"* es cómo decir "estoy definiendo un objeto" sólo que estamos renombrandolo.
+
+---
+# 62. React Router. El problema de las rutas en producción
+### Las limitantes de React router si sólo estamos haciendo una aplicación del lado del Front-end y no enfocado al lado del servidor. Ej: Si nuestra app ya se encuentra en la web, al momento de que react router tome la ruta de /usuario/jonmircha, nuestra aplicación arrojará un error 404.
+
+A la hora de subir nuestra aplicación a la web debemos de hacer un build de nuestra app. La carpeta public y src no se suben manualmente cómo talvez pensabamos (me incluyo en mis primeros meses de aprendizaje).
+Ejecutamos "npm run build". Este comando nos creará una carpeta llamada "build", "dist", según con que hayas desplegado tu aplicación. Abrimos la carpeta en una nueva ventana de vscode y ejecutamos live server.
+A primera vista, y viendo su funcionalidad, notaremos que todo anda cómo debería, que no hay diferencia entre nuestra aplicación en producción y ésta desplegada. Pero imaginemos que el usuario desea guardar en favoritos la ruta de '/usuario/jonmircha', para simular esto, copiemos la url de nuestro localhost que nos da nuestro npm run dev o npm run start... al pegarlo en una nueva pestaña, nos devolverá el componente que estemos envíando por la URL; pero al hacer lo mismo con la URL que nos devuelve nuestro live server, al pegar la url en una nueva pestaña/ventana/browser, lo que nos devolverá será un "Cannot GET /usuario/jonmircha". 
+Al abrir la herramientas de desarrollo, veremos en la pestaña network que aparecerá un error 404.
+
+¿Y por qué pasa esto?
+---
+Recordemos que lo que react router hace tras banbalinas es hacer renderizados condicionales y mostrar en la UI según la ruta que tengamos. 
+
+Si no tenemos una estrategía del lado del servidor, vamos a recibir este error, ya que el usuario para que no pase por esto, debe de empezar a consumir nuestra aplicación desde el home, y desde el home es que react router comienza a ejecutar los renderizados condicionales para ir mostrando una cosa u otra.
+
+Si comenzamos la navegación desde el home todo irá bien... imaginemos que nos encontramos en "/acerca", al recargar la página, estamos realizando una petición al servidor, pero cómo del lado del servidor no se encuentra la página "acerca" en sí, no nos la puede devolver. React Router sólo manipula la URL y renderiza en la UI a traves de condicionales pero siempre desde el archivo index que es donde se renderiza tódos los componentes. SPA tiene la ventaja de que tódo carga a la primera petición que realicemos mientras sea en el HOME. Si creamos una carpeta en nuestro build llamada "acerca" y dentro creamos un index.html que devuelva un h3 por ejemplo, al recargar la página desde "/acerca" esta si nos devolverá el index que creamos en la carpeta acerca, pero no lo que previamente se mostraba en la UI al comenzar la navegación desde el HOME.
 
 ---
