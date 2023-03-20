@@ -334,3 +334,13 @@ Si no tenemos una estrategía del lado del servidor, vamos a recibir este error,
 Si comenzamos la navegación desde el home todo irá bien... imaginemos que nos encontramos en "/acerca", al recargar la página, estamos realizando una petición al servidor, pero cómo del lado del servidor no se encuentra la página "acerca" en sí, no nos la puede devolver. React Router sólo manipula la URL y renderiza en la UI a traves de condicionales pero siempre desde el archivo index que es donde se renderiza tódos los componentes. SPA tiene la ventaja de que tódo carga a la primera petición que realicemos mientras sea en el HOME. Si creamos una carpeta en nuestro build llamada "acerca" y dentro creamos un index.html que devuelva un h3 por ejemplo, al recargar la página desde "/acerca" esta si nos devolverá el index que creamos en la carpeta acerca, pero no lo que previamente se mostraba en la UI al comenzar la navegación desde el HOME.
 
 ---
+# 63. React Router. HashRouter #️⃣
+Esta técnica se basa en utilizar el #, ya que al agregarlo nos permite acceder a enlaces internos, diciendole que nos encontramos en el mismo archivo y debe de buscar por "ID" , o recurso, o un API, por ejemplo.
+
+"http://127.0.0.1:5501/#/acerca" Aquí estaríamos especificando la ruta HOME y que dentro posee el recurso 'acerca'. 
+
+Para el uso del **Hash** crearemos un nuevo menú para mantener los conceptos que veníamos trabajando por separado.
+Utiliza el mismo flujo que nuestro BrowserRouter pero con diferentes componentes, en vez de crear un componente Router, haremos uso de **HashRouter**, dentro crearemos una barra de navegación con nav, y dentro importaremos 3 componentes **Link** con sus respectivas rutas del home, acerca y contacto. Fuera del nav haremos uso del componente Route para especificar las 3 rutas mencionadas, además de la ruta de error. 
+Luego que veamos que funciona todo correcto, ejecutaremos `'npm run build'`, creando un nuevo compilado para la aplicación en producción. 
+
+---
