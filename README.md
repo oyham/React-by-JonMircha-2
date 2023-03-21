@@ -344,3 +344,7 @@ Utiliza el mismo flujo que nuestro BrowserRouter pero con diferentes componentes
 Luego que veamos que funciona todo correcto, ejecutaremos `'npm run build'`, creando un nuevo compilado para la aplicación en producción. 
 
 ---
+# 64. React Router. Ejercicios.
+Copiamos archivos previos que realizamos en la tanda de ejercicios básicos de React y los pegamos en esta segunda parte. 
+
+---
