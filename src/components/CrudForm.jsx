@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const initialForm = {
   name: "",
@@ -9,6 +10,7 @@ const initialForm = {
 
 export const CrudForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
   const [form, setForm] = useState(initialForm)
+  let navigate = useNavigate()
 
   useEffect(() => {
     if(dataToEdit){
@@ -44,6 +46,7 @@ export const CrudForm = ({ createData, updateData, dataToEdit, setDataToEdit }) 
   const handleReset = (e) => {
     setForm(initialForm)
     setDataToEdit(null)
+    navigate("/santos")
   }
 
   return (

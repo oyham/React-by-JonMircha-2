@@ -377,3 +377,10 @@ CrudApi:
             </HashRouter>
 ...            
 ```
+---
+# 66. React Router. CRUD API con RUTAS (2/2)
+Pasamos el CrudForm a la ruta de agregar y editar. Los conditional render lo enviamos al home dentro de un fragment.
+Al momento de enviar a traves del form un nuevo santo, necesitamos volver a la crud table de forma manual para poder ver el resultado, pero para que se automatice esta lógica, utilizaremos useNavigate para que al momento de presionar el botón de 'enviar' naveguemos nuevamente a la crud table y poder ver el nuevo santo.
+
+Para el botón de 'editar' necesitamos irnos hacia el componente **CrudTableRow** dónde haremos uso del *useNavigate*.
+Crearemos una constante que reemplaze la función flecha que poseía el onClick en Editar. Dentro esta poseera lo que previamente ejecutaba el *onClick* y ademas navegaremos hacia la ruta de ``"santos/editar/${id}"`` que previamente ya nuestro CrudTableRow recibe a través de la *prop* **el**.

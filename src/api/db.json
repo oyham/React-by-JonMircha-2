@@ -1,11 +1,6 @@
 {
   "santos": [
     {
-      "id": 1,
-      "name": "Seiya",
-      "constellation": "Pegaso"
-    },
-    {
       "id": 2,
       "name": "Shiru",
       "constellation": "Dragón"
@@ -39,6 +34,26 @@
       "name": "Valeyntinas",
       "constellation": "Aries",
       "id": 1679431365845
+    },
+    {
+      "name": "Noah",
+      "constellation": "Libra",
+      "id": 1679497917145
+    },
+    {
+      "name": "Olympus",
+      "constellation": "Andrómeda",
+      "id": 1679499687287
+    },
+    {
+      "name": "Lumio",
+      "constellation": "Orión",
+      "id": 1679499779781
+    },
+    {
+      "name": "Halisha",
+      "constellation": "Leo",
+      "id": 1679499798076
     }
   ]
 }
