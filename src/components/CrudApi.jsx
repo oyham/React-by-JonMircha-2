@@ -4,6 +4,8 @@ import { CrudTable } from "./CrudTable";
 import { helpHttp } from "../helpers/helpHttp"
 import Loader from "./Loader";
 import Message from "./Message";
+import { HashRouter, NavLink, Route, Routes } from "react-router-dom";
+import Error404 from "../pages/Error404";
 
 const CrudApi = () => {
     const [db, setDb] = useState(null)
@@ -86,7 +88,21 @@ const CrudApi = () => {
 
     return (
         <>
-            <h2>CRUD-API</h2>
+            <HashRouter>
+                <header>
+                    <h2>CRUD-API con RUTAS</h2>
+                    <nav>
+                        <NavLink to='/santos'>Santos</NavLink>
+                        <NavLink to='/santos/agregar'>Agregar</NavLink>
+                    </nav>
+                </header>
+                <Routes>
+                    <Route path="/santos" element={<h2>Home de Santos</h2>}/>
+                    <Route path="/santos/agregar" element={<h2>Agregar Santos</h2>}/>
+                    <Route path="/santos/editar/:id" element={<h2>Editar Santos</h2>}/>
+                    <Route path="*" element={<Error404 />}/>
+                </Routes>
+            </HashRouter>
             <CrudForm
                 createData={createData}
                 updateData={updateData}

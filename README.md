@@ -348,3 +348,32 @@ Luego que veamos que funciona todo correcto, ejecutaremos `'npm run build'`, cre
 Copiamos archivos previos que realizamos en la tanda de ejercicios básicos de React y los pegamos en esta segunda parte. 
 
 ---
+# 65. React Router. CRUD API con RUTAS (1/2)
+##### basename en la V6 de React Router no funciona.
+En CrudApi creamos el componente HashRouter y colocamos el atributo basename, que tiene la función de establecer la ruta que compartiran las demás rutas para ahorranos colocarlas manualmente.
+Primero necesitamos un header que contenga una barra de navegación con dos NavLinks que contenga el *to* en home (que sería santos por el *basename*) y el otro en *agregar*.
+Luego necesitamos el componente que envuelva las rutas que seria Routes con las respectivas Route que queramos tener. Colocaremos la del home, la de agregar, y la de editar, esta ultima con el *"/:id"* para que muestre sólo el santo que queramos editar. Para la elmiminación no colocaremos una ruta ya que lo hacemos desde el home a traves ded un *alert*, aunque si quisieramos una ruta aparte sería como la de editar *"eliminar/:id"*. 
+
+*Quitaremos el basename en HashRouter y colocaremos la ruta /santos manualmente.
+Tambien añadiremos la Route del Error404.
+CrudApi:
+```js
+ return (
+        <>
+            <HashRouter>
+                <header>
+                    <h2>CRUD-API con RUTAS</h2>
+                    <nav>
+                        <NavLink to='/santos'>Santos</NavLink>
+                        <NavLink to='/santos/agregar'>Agregar</NavLink>
+                    </nav>
+                </header>
+                <Routes>
+                    <Route path="/santos" element={<h2>Home de Santos</h2>}/>
+                    <Route path="/santos/agregar" element={<h2>Agregar Santos</h2>}/>
+                    <Route path="/santos/editar/:id" element={<h2>Editar Santos</h2>}/>
+                    <Route path="*" element={<Error404 />}/>
+                </Routes>
+            </HashRouter>
+...            
+```

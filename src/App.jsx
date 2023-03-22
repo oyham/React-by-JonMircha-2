@@ -9,11 +9,11 @@ function App() {
     <div className="App">
       <h1>React Router</h1>
       <a href='https://reactrouter.com/en/6.8.2/start/tutorial' target='_blank'>Start Tutorial</a>
-      <SongSearch />
+      {/* <SongSearch /> */}
       <hr />
       <CrudApi />
       <hr />
-      <ConceptosBasicos />
+      {/* <ConceptosBasicos /> */}
     </div>
   )
 }
