@@ -493,8 +493,57 @@ return (
     )
 ```
 ---
-<!-- # 68. React Router. Buscador Canciones con RUTAS y local Storage (2/5) -->
+# 68. React Router. Buscador Canciones con RUTAS y local Storage (2/5)
+Necestiamos una vde para las canciones, con su valor de estado inicial dinámico, obteniendo así las canciones si es que poseemos guardadas, sinó recuperaremos un arreglo vacío.
+```js
+let mySongsInit = JSON.parse(localStorage.getItem("mySongs")) || []
 
+const SongSearch = () => {
+    ....
+    const [mySongs, setMySongs] = useState(mySongsInit)
+```
+Ahora bien, por cada busqueda que hagamos tenemos que establecer al valor mySongs el valor que obtenemos de la vde respectivamente. Esto lo haremos en el useEffect cada vez que se ejecute al finalizar la petición.
+```js
+localStorage.setItem("mySongs",JSON.stringify(mySongs))
+```
+A jon le aparece un warning sobre la vde mySongs, diciendo que al useEffect le falta esa dependencia, y lo soluciona colocando la vde en la dependencia del useEffect `[search,mySongs]`. A mi no me saltó ese warning pero igual incluyo la dependencia al igual que Jon. 
 
+El único evento que poseemos es el handleSearch que es la acción de solicitar la petición y buscar... pero como más adelante crearemos una tabla dónde iremos salvando las canciones favoritas, necestiremos una funcionalidad que nos permita guardar la canción y almacenarla en el localStorage. También necesitamos la funcionalidad de poder eliminar alguna canción de nuestra tabla.
+```js
+const handleSaveSong = () => {}
+const handleDeleteSong = (id) => {}
+```
+Ahora bien, quien va a desencadenar el evento de salvar la canción? El formulario, a través de un nuevo botón que se encargue de ejectura nuestro manejador. `<SongForm handleSearch={handleSearch} handleSaveSong={handleSaveSong}/>` Necesitamos pasarle el manejador como *prop*.
+
+Ahora en SongForm destructuramos nuestro nuevo manejador y creamos el nuevo input que guarde las canciones favs.
+```js
+const SongForm = ({ handleSearch, handleSaveSong }) => {
+    ...
+    <input type="button" onClick={handleSaveSong} value="Añadir a Favoritos" />
+```
+El botón de añadir a favoritos debería estar deshabilitado a no ser que ya haya una búsqueda. Para controlar el estado de enabled o disabled necesitaremos una vde que comience en true y luego un conditional render en la prop disabled.
+```js
+const [isDisabled, setIsDisabled] = useState(true)
+...
+<input ... value="Añadir a Favoritos" disabled={isDisabled && "disabled"}/>
+```
+¿Y en qué momento debería habilitarse el botón? Luego de la búsqueda, justamente despues del loader previo a mostrar en la UI la canción (aunque Jon lo hace previo al loader). Esto lo hariamos en el handleSubmit al final del todo luego de setear el formulario a sus valores iniciales. También tenemos el problema de que si queremos realziar una nueva búsqueda y enviamos el formulario incompleto, ahí debería deshabilitarse el botón de añadir a favoritos.
+```js
+...
+const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if(!form.artist || !form.song){
+            alert("Datos incompletos")
+            setIsDisabled(true)
+            return;
+        }
+
+        handleSearch(form)
+        setForm(initialForm)
+        setIsDisabled(false)
+    }       
+```
+---
 
 
