@@ -384,3 +384,117 @@ Al momento de enviar a traves del form un nuevo santo, necesitamos volver a la c
 
 Para el botón de 'editar' necesitamos irnos hacia el componente **CrudTableRow** dónde haremos uso del *useNavigate*.
 Crearemos una constante que reemplaze la función flecha que poseía el onClick en Editar. Dentro esta poseera lo que previamente ejecutaba el *onClick* y ademas navegaremos hacia la ruta de ``"santos/editar/${id}"`` que previamente ya nuestro CrudTableRow recibe a través de la *prop* **el**.
+CrudApi:
+```js
+return (
+        <>
+            <HashRouter>
+                <header>
+                    <h2>CRUD-API con RUTAS</h2>
+                    <nav>
+                        <NavLink to='/santos'>Santos</NavLink>
+                        <NavLink to='/santos/agregar'>Agregar</NavLink>
+                    </nav>
+                </header>
+                <Routes>
+                    <Route path="/santos" element={
+                        <>
+                            {loading && <Loader />}
+                            {error && <Message
+                                msg={`Error ${error.status}: ${error.statusText}`}
+                                bgColor="#dc3545" />}
+                            {db && <CrudTable
+                                data={db}
+                                setDataToEdit={setDataToEdit}
+                                deleteData={deleteData}
+                            />}
+                        </>
+                    }>
+
+                    </Route>
+                    <Route
+                        path="/santos/agregar"
+                        element={
+                            <CrudForm
+                                createData={createData}
+                                updateData={updateData}
+                                dataToEdit={dataToEdit}
+                                setDataToEdit={setDataToEdit}
+                            />}
+                    />
+                    <Route
+                        path="/santos/editar/:id"
+                        element={
+                            <CrudForm
+                                createData={createData}
+                                updateData={updateData}
+                                dataToEdit={dataToEdit}
+                                setDataToEdit={setDataToEdit}
+                            />}
+                    />
+                    <Route path="*" element={<Error404 />} />
+                </Routes>
+            </HashRouter>
+
+        </>
+    )
+```
+CrudTableRow:
+```js
+ let navigate = useNavigate()
+
+    const handleEdit = () => {
+        setDataToEdit(el)
+        navigate(`/santos/editar/${id}`)
+    }
+
+    return (
+        <>
+            <tr>
+                <td>{name}</td>
+                <td>{constellation}</td>
+                <td>
+                    <button onClick={handleEdit}>Editar</button>
+...
+```
+---
+# 67. React Router. Buscador Canciones con RUTAS y local Storage (1/5)
+Añadiremos al SongSearch los componentes de React Router para crear la estructura de navegación en el buscador de canciones. 
+```js
+return (
+        <div>
+            <HashRouter>
+                <header>
+                    <h2>Buscador de Canciones con RUTAS</h2>
+                    <nav>
+                        <NavLink to='/canciones'>Home</NavLink>
+                    </nav>
+                </header>
+                {loading && <Loader />}
+                <article className="grid-1-3">
+                    <Routes>
+                        <Route path='/canciones' element={
+                            <>
+                                <SongForm handleSearch={handleSearch} />
+                                <h2>Tabla de Canciones</h2>
+                                {search && !loading && (
+                                    <SongDetails search={search} lyric={lyric} bio={bio} />
+                                )}
+                            </>
+                        } />
+                        <Route path='/canciones/:id' element={
+                            <h2>Página de canción</h2>
+                        } />
+                        <Route path="*" element={<Error404 />} />
+                    </Routes>
+                </article>
+            </HashRouter>
+        </div>
+    )
+```
+---
+<!-- # 68. React Router. Buscador Canciones con RUTAS y local Storage (2/5) -->
+
+
+
+
