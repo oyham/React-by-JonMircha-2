@@ -627,8 +627,68 @@ const SongTableRow = ({ id, el, handleDeleteSong }) => {
 export default SongTableRow
 ```
 ---
-<!-- # 70. React Router. Buscador Canciones con RUTAS y local Storage (4/5) -->
+# 70. React Router. Buscador Canciones con RUTAS y local Storage (4/5)
+Comenzaremos programando la funcion de guardar la canción y eliminar la canción. En el primer método crearemos un objeto que contenga las vde que ya existen en el SongSearch, que són *search, lyric, bio*. Luego utilizar la función actualizadora setMySongs para almacenar las canciones. Recordar que el estado en react es asíncrono, y como este es un arreglo debemos de recibir la vde en la funcion y mezclarla con el nuevo objeto que creamos utilizando spread operator, y adicionalmente actualizaremos la búsqueda a *null* que es su valor por defecto.
 
+Ahora viendo que todo funciona correctamente, destructuraremos las props bio y search de nuestro *el* para obtener asi el nombre de la canción y el nombre del artista, tambien obtendremos la imagen del artista creando un avatar. 
 
+También crearemos la var *avatarStyles* para darle altura y anchura a la imagen del artista.
+
+Ahora crearemos una nueva página en la carpeta page llamada SongPage, para mostrar así la página de x canción según su *id*, y esta devolvera el componente SongDetails que era el componente que mostraba los detalles de la canción, y pasaremos las props de *search, lyric, bio*.
+
+Ahora en **SongSearch**, en el componente Route de canciohnes/id, cargaremos el componente (o mas bien la PAGE) **SongPage**, pasandole la prop *mySongs*.
+En SongPage destructuramos mySongs para poder hacer uso de la misma, y ademas hacemos uso del useParams para destructurar el *id*. También crearemos la variable currentSong para asi óder guardar la información de la canción que buscamos recientemente a través del *id* y así poder hacer uso de la destructuración y obtener la busqueda, letras y biografía y pasarlas como props al componente **SongDetails**.
+
+SongSearch:
+```js
+const handleDeleteSong = (id) => {
+        let isDelete =  window.confirm(`Desea eliminar la canción con el id: ${id}`)
+        // confirm(`Desea eliminar la canción con el id: ${id}`)
+        if (isDelete) {
+            let songs = mySongs.filter((el,index) => index !== id);
+            setMySongs(songs)
+            localStorage.setItem("mySongs",JSON.stringify(songs));
+        }
+    }
+...
+<Route path='/canciones/:id' element={<SongPage mySongs={mySongs}/>}/>
+```
+SongTableRow:
+```js
+...
+    let {bio, search} = el
+    let avatar = bio.artists[0].strArtistThumb
+    let avatarStyles = {
+        width: "auto",
+        height: "40px"
+    }
+
+    let navigate = useNavigate()
+
+    return (
+        <tr>
+            <td><img style={avatarStyles} src={avatar} alt={search.artist} /></td>
+...            
+```
+SongPage:
+```js
+import React from 'react'
+import { useParams } from 'react-router-dom'
+import SongDetails from '../components/SongDetails'
+
+const SongPage = ({ mySongs }) => {
+    let {id} = useParams();
+    // console.log(id, mySongs, mySongs[id])
+    let currentSong = mySongs[id]
+    let {search,lyric,bio} = currentSong
+    
+    return (
+        <SongDetails search={search} lyric={lyric} bio={bio} />
+    )
+}
+
+export default SongPage
+```
+---
 <!-- # 71. React Router. Buscador Canciones con RUTAS y local Storage (5/5) -->
 
