@@ -5,6 +5,7 @@ import Loader from './Loader'
 import { helpHttp } from '../helpers/helpHttp'
 import { HashRouter, NavLink, Route, Routes } from "react-router-dom";
 import Error404 from '../pages/Error404'
+import SongTable from './SongTable'
 
 let mySongsInit = JSON.parse(localStorage.getItem("mySongs")) || [];
 
@@ -53,8 +54,9 @@ const SongSearch = () => {
         alert("Salvando canción en favoritos")
     }
 
-    const handleDeleteSong = (id) => {}
-
+    const handleDeleteSong = (id) => {
+        confirm(`Desea eliminar la canción con el id: ${id}`)
+    }
     return (
         <div>
             <HashRouter>
@@ -65,12 +67,12 @@ const SongSearch = () => {
                     </nav>
                 </header>
                 {loading && <Loader />}
-                <article className="grid-1-3">
+                <article className="grid-1-2">
                     <Routes>
                         <Route path='/' element={
                             <>
                                 <SongForm handleSearch={handleSearch} handleSaveSong={handleSaveSong}/>
-                                <h2>Tabla de Canciones</h2>
+                                <SongTable mySongs={mySongs} handleDeleteSong={handleDeleteSong}/>
                                 {search && !loading && (
                                     <SongDetails search={search} lyric={lyric} bio={bio} />
                                 )}

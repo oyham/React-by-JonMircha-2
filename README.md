@@ -545,5 +545,90 @@ const handleSubmit = (e) => {
     }       
 ```
 ---
+# 69. React Router. Buscador Canciones con RUTAS y local Storage (3/5)
+Creamos el componente **SongTable** con *rafce*, esta devolvera un *thead* con la columna de Artista, Canción y Acciones, ademas del tbody que se encargara de hacer un mapeo de las canciones, y destructurariamos como props las canciones en *mySongs* y el evento de eliminar las canciones para la acción de eliminar con *hanldeDeleteSong*. En el mapeo de la prop *mySongs* haremos un conditional render preguntandonos si la longitud de la prop mySongs es 0 o nó, ademas de ésta recibir los *el* y *index* cómo llave para cada una de las canciones, y para cada uno de los *el* llamaremos el componente **SongTableRow** con la prop *key* con index. 
 
+Luego crearemos el componente **SongTableRow** con *rafce* que es el qué se encargara de recibir todo el contenido, y devolvera la imagen del artista, el nombre de él y de la canción, y los botones de *Ver* y *Eliminar*.
+
+Reemplazamos el *h2* Tabla de canciones que teníamos en **SongSearch** por el componente **SongTable**
+Añadiremos como props adicionales al componente SongTableRow *el*, *id* y la función *handleDeleteSong*, y las destructuramos para hacer uso de ellas. Ahora para la función del botón *Ver* haremos uso del *useNavigate* para dirigirnos a la cancion con el *id* correspondiente, y para el botón de eliminar ejecutaremos en una función flecha el manejador *handleDeleteSong* pasando así el *id*.
+Luego en **SongSearch**, en la función handleDeleteSong colocaremos un confirm.
+
+SongSearch:
+```js
+...
+const handleDeleteSong = (id) => {
+        confirm(`Desea eliminar la canción con el id: ${id}`)
+    }
+...
+<SongTable mySongs={mySongs} handleDeleteSong={handleDeleteSong}/>
+...
+```
+SongTable:
+```js
+import React from 'react'
+import SongTableRow from './SongTableRow'
+
+const SongTable = ({ mySongs, handleDeleteSong }) => {
+    return (
+        <div>
+
+            <h3>Mis canciones favortias</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th colSpan={2}>Artista</th>
+                        <th>Canción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {mySongs.length > 0 ? (
+                        mySongs.map((el, index) =>
+                            <SongTableRow
+                                key={index}
+                                el={el}
+                                id={index}
+                                handleDeleteSong={handleDeleteSong}
+                            />)
+                    ) : (
+                        <tr><td colSpan="4">Sin Canciones</td></tr>
+                    )}
+                </tbody>
+            </table>
+        </div>
+    )
+}
+
+export default SongTable
+```
+SongTableRow:
+```js
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+
+const SongTableRow = ({ id, el, handleDeleteSong }) => {
+    console.log(el)
+
+    let navigate = useNavigate()
+    return (
+        <tr>
+            <td><img src="https://placeimg.com/40/40/any" alt="any" /></td>
+            <td>Nombre artista</td>
+            <td>Nombre canción</td>
+            <td>
+                <button onClick={() => navigate(`/canciones/${id}`)}>Ver</button>
+                <button onClick={() => handleDeleteSong(id)}>Eliminar</button>
+            </td>
+        </tr>
+    )
+}
+
+export default SongTableRow
+```
+---
+<!-- # 70. React Router. Buscador Canciones con RUTAS y local Storage (4/5) -->
+
+
+<!-- # 71. React Router. Buscador Canciones con RUTAS y local Storage (5/5) -->
 
