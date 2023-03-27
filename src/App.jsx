@@ -11,9 +11,9 @@ function App() {
       <a href='https://reactrouter.com/en/6.8.2/start/tutorial' target='_blank'>Start Tutorial</a>
       <SongSearch />
       <hr />
-      {/* <CrudApi /> */}
+      <CrudApi />
       <hr />
-      {/* <ConceptosBasicos /> */}
+      <ConceptosBasicos />
     </div>
   )
 }

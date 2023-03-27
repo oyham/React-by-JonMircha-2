@@ -690,5 +690,21 @@ const SongPage = ({ mySongs }) => {
 export default SongPage
 ```
 ---
-<!-- # 71. React Router. Buscador Canciones con RUTAS y local Storage (5/5) -->
+# 71. React Router. Buscador Canciones con RUTAS y local Storage (5/5)
+No se si lo han notado, pero la aplicación no guardaba alguna que otra canción en el localStorage ya que no habíamos implementado esa programación en la función de *handleSaveSong*. Copiamos y pegamos el seteo del item de localStorage que poseemos en handleDeleteSongs ya que cumple la función de setear las canciones convirtiendolas en cadena de texto. Luego de eso creamos la variable songs y le pasamos el array que poseemos en *handleSaveSong*, y luego eliminamos la arrow function que poseía la función actualizadora **setMySongs** para así pasarle sólo la variable *songs*.
+```js
+const handleSaveSong = () => {
+        alert("Salvando canción en favoritos")
+        let currentSong = {
+            search,
+            lyric,
+            bio
+        }
+        let songs = [...mySongs, currentSong]
+        setMySongs((songs))
+        setSearch(null)
+        localStorage.setItem("mySongs",JSON.stringify(songs));
+    }
+```
+---
 
